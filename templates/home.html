@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+	
+{% block content %}
+<!-- movies.html -->
+
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+    </style>
+
+    <h1>Movie List</h1>
+
+    <form method="GET" action="{% url 'movie_list' %}">
+        <input type="text" name="search" placeholder="Search by title..." value="{{ request.GET.search }}">
+        <button type="submit">Search</button>
+    </form> 
+
+    <table>
+    <thead>
+        <tr>
+        <th>name</th>
+        <th>genre</th>
+        <th>rating</th>
+        <th>release_date</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for movie in movies %}
+        <tr>
+        <td>{{ movie.name }}</td>
+        <td>{{ movie.genre }}</td>
+        <td>{{ movie.rating }}</td>
+        <td>{{ movie.release_date }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+        <td colspan="4">No movies found.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+
+
+{% endblock content %}
